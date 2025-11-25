@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public @NonNull User getById(@NonNull Long id) {
-        log.debug("Retrieving POS with ID: {}", id);
+        log.debug("Retrieving User with ID: {}", id);
         return userDataService.getById(id);
     }
 
@@ -46,14 +46,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public @NonNull User upsert(@NonNull User user) {
         if (user.id() == null) {
-            // create a new POS
-            log.info("Creating new POS: {}", user.loginName());
+            // create a new User
+            log.info("Creating new User: {}", user.loginName());
         } else {
-            // update an existing POS
+            // update an existing User
             log.info("Updating POS with ID: {}", user.id());
-            // POS ID must be set
+            // User ID must be set
             Objects.requireNonNull(user.id());
-            // POS must exist in the database before the update
+            // User must exist in the database before the update
             userDataService.getById(user.id());
         }
         return performUpsert(user);
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     public void delete(@NonNull Long id) {
         log.info("Trying to delete User with ID: {}", id);
         userDataService.delete(id);
-        log.info("Deleted POS with ID: {}", id);
+        log.info("Deleted User with ID: {}", id);
     }
 
     private @NonNull User performUpsert(@NonNull User user) {
